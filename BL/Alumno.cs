@@ -215,7 +215,7 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result AlumnoDelete(ML.Alumno alumno)
+        public static ML.Result AlumnoDelete(int IdAlumno)
         {
             ML.Result result = new ML.Result();
             try
@@ -231,7 +231,7 @@ namespace BL
                         SqlParameter[] collection = new SqlParameter[1];
 
                         collection[0] = new SqlParameter("@IdAlumno", SqlDbType.Int);
-                        collection[0].Value = alumno.IdAlumno;
+                        collection[0].Value = IdAlumno;
                         cmd.Parameters.AddRange(collection);
 
                         

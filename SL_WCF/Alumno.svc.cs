@@ -31,9 +31,9 @@ namespace SL_WCF
             ML.Result result = BL.Alumno.AlumnoUpDate(alumno);
             return new SL_WCF.Result { Correct = result.Correct, Ex = result.Ex, Objects = result.Objects, Object = result.Object, Message = result.ErrorMessage };
         }
-        public SL_WCF.Result Delete(ML.Alumno alumno)
+        public SL_WCF.Result Delete(int IdAlumno)
         {
-            ML.Result result = BL.Alumno.AlumnoUpDate(alumno);
+            ML.Result result = BL.Alumno.AlumnoDelete(IdAlumno);
             return new SL_WCF.Result { Correct = result.Correct, Ex = result.Ex, Objects = result.Objects, Object = result.Object, Message = result.ErrorMessage };
         }
 

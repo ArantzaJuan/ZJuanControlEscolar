@@ -20,15 +20,14 @@ namespace SL_WCF
         SL_WCF.Result GetById(int IdAlumno);
 
         [OperationContract]
-        [ServiceKnownType(typeof(ML.Alumno))]
+       
         SL_WCF.Result Add(ML.Alumno alumno);
 
         [OperationContract]
-        [ServiceKnownType(typeof(ML.Alumno))]
+        
         SL_WCF.Result UpDate(ML.Alumno alumno);
 
         [OperationContract]
-        [ServiceKnownType(typeof(ML.Alumno))]
-        SL_WCF.Result Delete(ML.Alumno alumno);
+        SL_WCF.Result Delete(int IdAlumno);
     }
 }

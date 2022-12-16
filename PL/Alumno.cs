@@ -117,7 +117,7 @@ namespace PL
 
             
             ML.Result result = new ML.Result();
-                result = BL.Alumno.AlumnoDelete(alumno);
+                //result = BL.Alumno.AlumnoDelete(int IdAlumno);
             if (result.Correct == true)
             {
                 Console.WriteLine("El alumno se registro correctamente");
