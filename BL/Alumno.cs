@@ -93,7 +93,7 @@ namespace BL
                                 alumno.Nombre = row[1].ToString();
                                 alumno.ApellidoPaterno = row[2].ToString();
                                 alumno.ApellidoMaterno = row[3].ToString();
-                                result.Objects.Add(alumno);
+                                result.Object= alumno;
                             
                             result.Correct = true;
                         }

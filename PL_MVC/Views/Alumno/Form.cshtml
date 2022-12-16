@@ -29,22 +29,22 @@
                     <div class="form-group">
                         <div class="col-md-3">
                             @Html.LabelFor(model => model.Nombre)
-                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "txtNombre" })
-                            @Html.ValidationMessageFor(model => model.Nombre)
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "txtNombre", @placeholder = "Ejemplo: Maria", @onkeypress = "return SoloLetras(event,'lblNombre')" })
+                            @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             @Html.LabelFor(model => model.ApellidoPaterno)
-                            @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @id = "txtNombre" })
-                            @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+                            @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", @placeholder = "Ejemplo: Lopéz", @onkeypress = "return SoloLetras(event,'lblApellidoPaterno')" })
+                            @Html.Label("", null, new { @id = "lblApellidoPaterno" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             @Html.LabelFor(model => model.ApellidoMaterno)
-                            @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @id = "txtNombre" })
-                            @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+                            @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoPaterno", @placeholder = "Ejemplo: Lopéz", @onkeypress = "return SoloLetras(event,'lblApellidoPaterno')" })
+                            @Html.Label("", null, new { @id = "lblApellidoPaterno" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -61,3 +61,29 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+        function SoloLetras(e, controlId) {
+            var caracter = e.key;
+            if (!/^[A-Za-z ]/g.test(caracter)) {
+                $('#' + controlId).text("Solo se aceptan letras");
+                $('#' + controlId).css({ "color": "red" });
+                return false;
+            }
+            else {
+                $('#' + controlId).text("");
+                return true;
+            }
+        }
+
+    </script>
+
+}

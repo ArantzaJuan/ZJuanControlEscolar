@@ -15,7 +15,7 @@ namespace PL_MVC.Controllers
             ML.Alumno alumno = new ML.Alumno();
 
             //Se hace el acceso al servidor ServiceProducto
-            AlumnoReference1.AlumnoClient context = new AlumnoReference1.AlumnoClient();
+            AlumnoReference.AlumnoClient context = new AlumnoReference.AlumnoClient();
             
             var result = context.GetAll();
             
@@ -36,7 +36,7 @@ namespace PL_MVC.Controllers
         {
             ML.Alumno alumno = new ML.Alumno();
             
-            if(alumno == null)
+            if(IdAlumno == null)
             {
                 return View(alumno);
             }
@@ -45,7 +45,7 @@ namespace PL_MVC.Controllers
 
                 
                 //Se hace el acceso al servidor ServiceProducto
-                AlumnoReference1.AlumnoClient context = new AlumnoReference1.AlumnoClient();
+                AlumnoReference.AlumnoClient context = new AlumnoReference.AlumnoClient();
 
                 var  result = context.GetById(IdAlumno.Value);
                 if (result.Correct)
@@ -68,7 +68,7 @@ namespace PL_MVC.Controllers
 
             if (alumno.IdAlumno == 0)
             {
-                AlumnoReference1.AlumnoClient context = new AlumnoReference1.AlumnoClient();
+                AlumnoReference.AlumnoClient context = new AlumnoReference.AlumnoClient();
 
                 var result = context.Add(alumno);
                 if (result.Correct)
@@ -86,7 +86,7 @@ namespace PL_MVC.Controllers
             {
                 //update
 
-                AlumnoReference1.AlumnoClient context = new AlumnoReference1.AlumnoClient();
+                AlumnoReference.AlumnoClient context = new AlumnoReference.AlumnoClient();
                var result = context.UpDate(alumno);
 
                 if (result.Correct)
@@ -104,17 +104,17 @@ namespace PL_MVC.Controllers
             return PartialView("Modal");
 
         }
-        [HttpGet]
-        public ActionResult Delete(int IdAlumno)
-        {
-            AlumnoReference1.AlumnoClient context = new AlumnoReference1.AlumnoClient();
-            var result = context.Delete(IdAlumno);
-            if (result.Correct)
-            {
-                ViewBag.Mensaje = "Se elimino el registro";
-            }
-            return PartialView("Modal");
-        }
+        //[HttpGet]
+        //public ActionResult Delete(int IdAlumno)
+        //{
+        //    AlumnoReference1.AlumnoClient context = new AlumnoReference1.AlumnoClient();
+        //    var result = context.Delete(IdAlumno);
+        //    if (result.Correct)
+        //    {
+        //        ViewBag.Mensaje = "Se elimino el registro";
+        //    }
+        //    return PartialView("Modal");
+        //}
 
     }
 }
