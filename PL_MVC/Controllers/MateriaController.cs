@@ -24,9 +24,9 @@ namespace PL_MVC.Controllers
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new ConfigurationManager.("WebAPIUrl");
+                    client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUrl"]);
 
-                    var responseTask = client.GetAsync("Usuario/GetAll");
+                    var responseTask = client.GetAsync("api/Materia/Get");
                     //result = bl.Usuario.GetAll();
 
                     responseTask.Wait();
@@ -42,7 +42,7 @@ namespace PL_MVC.Controllers
 
                         foreach (var resultItem in readTask.Result.Objects)
                         {
-                            ML.Materia resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Materia>(resultItem.ToString());
+                            ML.Alumno resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Alumno>(resultItem.ToString());
                             result.Objects.Add(resultItemList);
                         }
 
