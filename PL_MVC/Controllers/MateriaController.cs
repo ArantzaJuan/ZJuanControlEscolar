@@ -42,7 +42,7 @@ namespace PL_MVC.Controllers
 
                         foreach (var resultItem in readTask.Result.Objects)
                         {
-                            ML.Alumno resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Alumno>(resultItem.ToString());
+                            ML.Materia resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Materia>(resultItem.ToString());
                             result.Objects.Add(resultItemList);
                         }
 
@@ -52,10 +52,24 @@ namespace PL_MVC.Controllers
             }
             catch (Exception ex)
             {
-
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
             }
-            return View(materia);
+            if (result.Correct)
+            {
+
+                materia.Materias = result.Objects;
+                return View(materia);
+            }
+            else
+            {
+                ViewBag.Message = "Ocurrio un error, no se pueden mostar los registro ";
+                return View();
+            }
+
         }
+
 
         public ActionResult Form(int? idMateria)
         {
@@ -68,62 +82,124 @@ namespace PL_MVC.Controllers
             else
             {
                 ML.Result result = new ML.Result();
-                result = BL.Materia.GetById(idMateria.Value);
+                try
+                {
+
+                    using (var client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUrl"]);
+
+                        var responseTask = client.GetAsync("api/Materia/GetById/" + idMateria);
+
+                        responseTask.Wait();
+
+                        var resultServicio = responseTask.Result;
+
+                        if (resultServicio.IsSuccessStatusCode)
+                        {
+                            var readTask = resultServicio.Content.ReadAsAsync<ML.Result>();
+                            readTask.Wait();
+                            ML.Materia resultItemList = new ML.Materia();
+                            resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Materia>(readTask.Result.Object.ToString());
+                            result.Object = resultItemList;
+                            result.Correct = true;
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    result.Correct = false;
+                    result.ErrorMessage = ex.Message;
+                }
                 if (result.Correct)
                 {
                     materia = (ML.Materia)result.Object;
+
+
                 }
                 else
                 {
-                    ViewBag.Mensaje = "No se pueden mostrar los alumnos";
+                    ViewBag.Message = "Ocurrio un error al consultar al usuario seleccionado";
                 }
                 return View(materia);
-
             }
         }
+
+
+
 
         [HttpPost]
         public ActionResult Form(ML.Materia materia)
         {
-
-
+            ML.Result result = new ML.Result();
             if (materia.idMateria == 0)
             {
-                ML.Result result = new ML.Result();
-                result = BL.Materia.Add(materia);
-                if (result.Correct)
-                {
-                    materia = (ML.Materia)result.Object;
-                    ViewBag.Mensaje = "Usuario guardado exitosamente";
+               
+                // result = BL.Materia.Add(materia);
+                    try
+                    {
 
-                }
-                else
-                {
-                    ViewBag.Mensaje = "Ocurrio un error al agregar al usuario";
-                }
+                        using (var client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUrl"]);
+
+                            //HTTP POST
+                            var postTask = client.PostAsJsonAsync<ML.Materia>("api/Materia/Post", materia);
+                            postTask.Wait();
+
+                            var resultSer = postTask.Result;
+                            if (resultSer.IsSuccessStatusCode)
+                            {
+                                return RedirectToAction("GetAll");
+                            }
+                        }
+
+                        return View("GetAll");
+                    }
+
+                    catch (Exception ex)
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = ex.Message;
+                    }
             }
             else
             {
-                //update
+                 //update
+                try
+                {
 
-                ML.Result result = new ML.Result();
-                result = BL.Materia.Update(materia);
-                if (result.Correct)
-                {
-                    materia = (ML.Materia)result.Object;
-                    ViewBag.Mensaje = "Usuario Actualizado Correctamente";
+                        using (var client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUrl"]);
+
+                            //HTTP POST
+                            var postTask = client.PutAsJsonAsync<ML.Materia>("api/Materia/Put/" + materia.idMateria, materia);
+                            postTask.Wait();
+
+                            var resultSer = postTask.Result;
+                            if (resultSer.IsSuccessStatusCode)
+                            {
+                                return RedirectToAction("GetAll");
+                            }
+                        }
+
+                        return View("GetAll");
                 }
-                else
-                {
-                    ViewBag.Mensaje = "Ocurrio un error El usuario no se pudo actualizar";
+                catch (Exception ex)
+                 {
+                        result.Correct = false;
+                        result.ErrorMessage = ex.Message;
                 }
 
             }
 
+            
             return PartialView("Modal");
-
         }
-        [HttpGet]
+
+            [HttpGet]
         public ActionResult Delete(int idMatreria)
         {
             ML.Result result = new ML.Result();
