@@ -10,22 +10,15 @@
 namespace DL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Alumno
+    public partial class AlumnoMateriaGetById_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Alumno()
-        {
-            this.AlumnoMaterias = new HashSet<AlumnoMateria>();
-        }
-    
+        public int IdAlumnoMateria { get; set; }
         public int IdAlumno { get; set; }
-        public string Nombre { get; set; }
+        public string NombreAlumno { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlumnoMateria> AlumnoMaterias { get; set; }
+        public int idMateria { get; set; }
+        public string NombreMateria { get; set; }
     }
 }

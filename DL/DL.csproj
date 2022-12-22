@@ -77,6 +77,15 @@
     <Compile Include="AlumnoGetById_Result.cs">
       <DependentUpon>ZJuanControlEscolar.tt</DependentUpon>
     </Compile>
+    <Compile Include="AlumnoMateria.cs">
+      <DependentUpon>ZJuanControlEscolar.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlumnoMateriaGetById_Result.cs">
+      <DependentUpon>ZJuanControlEscolar.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlumnoMateriaNoAsignada_Result.cs">
+      <DependentUpon>ZJuanControlEscolar.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Materia.cs">

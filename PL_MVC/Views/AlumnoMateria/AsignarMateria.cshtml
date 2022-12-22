@@ -1,0 +1,64 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "AsignarMateria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Lista de becas</h2>
+<div class="row">
+    <div class="form-group">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.IdAlumnoMateria, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.IdAlumnoMateria, new { @class = "hidden form-control" })
+            @Html.ValidationMessageFor(model => model.IdAlumnoMateria)
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Alumno.IdAlumno)
+            @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "form-control", @id = "txtNombre" })
+            @Html.ValidationMessageFor(model => model.Alumno.IdAlumno)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Alumno.ApellidoPaterno)
+            @Html.TextBoxFor(model => model.Alumno.ApellidoPaterno, new { @class = "form-control", @id = "txtNombre" })
+            @Html.ValidationMessageFor(model => model.Alumno.ApellidoPaterno)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Alumno.ApellidoMaterno)
+            @Html.TextBoxFor(model => model.Alumno.ApellidoMaterno, new { @class = "form-control", @id = "txtNombre" })
+            @Html.ValidationMessageFor(model => model.Alumno.ApellidoMaterno)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table class="tablcenter table table-striped ">
+
+        <thead>
+            <tr>
+                <th>Becas </th>
+                <th class="text-center"> Eliminar  </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.AlumnoMateria alumnoMateria in Model.AlumnoMaterias)
+            {
+                <tr>
+                    <td class="hidden">@alumnoMateria.IdAlumnoMateria</td>
+                    <td>@alumnoMateria.Materia.nombre  </td>
+                    <td>@alumnoMateria.Materia.costo  </td>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-trash " href="@Url.Action("AsignarMateria", "AlumnoMateria", new { IdAlumno = alumnoMateria.Alumno.IdAlumno })"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

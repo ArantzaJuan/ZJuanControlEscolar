@@ -10,21 +10,11 @@
 namespace DL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Materia
+    public partial class AlumnoMateriaNoAsignada_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Materia()
-        {
-            this.AlumnoMaterias = new HashSet<AlumnoMateria>();
-        }
-    
         public int idMateria { get; set; }
         public string nombre { get; set; }
         public Nullable<decimal> costo { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlumnoMateria> AlumnoMaterias { get; set; }
     }
 }
